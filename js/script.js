@@ -19,6 +19,7 @@ let isErase = false;
 div.forEach((item, index) => {
   item.addEventListener('mousedown', (e) => {
     e.preventDefault();
+    item.style.background = colorPicker.value;
     isDragged = true;
   })
 
@@ -26,7 +27,7 @@ div.forEach((item, index) => {
     isDragged = false;
   })
 
-  item.addEventListener('mouseenter', (e) => {
+  item.addEventListener('mousemove', (e) => {
     if(isDragged){
       item.style.background = colorPicker.value;
     }
