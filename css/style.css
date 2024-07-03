@@ -3,3 +3,103 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.btn {
+  font-family: inherit;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: .8;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  background: #f4f4f4;
+}
+
+.main-container {
+  border: 1px solid #ccc;
+  margin: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#drawer {
+  flex: 1 1 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  flex-wrap: wrap;
+  height: 80vh;
+}
+
+#drawer > div {
+  flex: 1 1 10px;
+  height: 10px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#options {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+#options .colors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#options .colors > div {
+  flex: 1 1 50px;
+  height: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+}
+
+#options .colors > input {
+  flex: 1 1 100%;
+  padding: .5rem;
+  height: 50px;
+}
+
+#options .eraser {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#options .eraser > button {
+  border: 1px solid #ccc;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  background: #fff;
+}
