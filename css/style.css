@@ -37,33 +37,60 @@ body {
   gap: 1rem;
 }
 
-#drawer {
+.drawer-container {
   flex: 1 1 75%;
+  max-width: 1100px;
+  height: 75vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
+  gap: 0;
+}
+
+#drawer {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
-  height: 80vh;
 }
 
 #drawer > div {
-  flex: 1 1 10px;
-  height: 10px;
-  border: 1px solid #000;
+  width: 5px;
+  height: 5px;
+  /* border: 1px solid #000; */
   box-sizing: border-box;
   margin: 0;
+  background: #fff;
 }
 
 #options {
-  flex: 1 1 auto;
+  flex: 1 1 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   border: 1px solid #ccc;
+  padding: 0 1rem;
+  border-radius: 5px;
+}
+
+#options .size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+#options .size > .btn {
+  border: 1px solid #ccc;
   padding: 1rem;
+  background: #fff;
   border-radius: 5px;
 }
 
@@ -87,6 +114,7 @@ body {
   flex: 1 1 100%;
   padding: .5rem;
   height: 50px;
+  background-color: #fff;
 }
 
 #options .eraser {
