@@ -7,11 +7,14 @@ const freeDrawing = document.querySelector('#free-drawing');
 const boxes = [];
 
 const setDrawer = (drawerSize) => {
+  const containerHeight = drawer.clientHeight;
+  
+  drawer.innerHTML = '';
   for(let x = 0; x < drawerSize; x++){
     for(let y = 0; y < drawerSize; y++){
       boxes[y] = document.createElement('div');
       boxes[y].style.flex = `1 1 ${100/drawerSize}%`;
-      boxes[y].style.width = `${75/drawerSize}vh`;
+      boxes[y].style.width = `${containerHeight/drawerSize}px`;
       drawer.append(boxes[y]);
     }
   }
@@ -20,32 +23,31 @@ const setDrawer = (drawerSize) => {
 setDrawer(16);
 
 size16.addEventListener('click', (e) => {
-  drawer.innerHTML = '';
   setDrawer(16);
 })
 
 size32.addEventListener('click', (e) => {
-  drawer.innerHTML = '';
   setDrawer(32);
 })
 
 sizeX.addEventListener('click', (e) => {
-  drawer.innerHTML = '';
   setDrawer(prompt('Set Size (Max 100)'));
 })
 
 freeDrawing.addEventListener('click', (e) => {
-  drawer.innerHTML = '';
+  const containerWidth = drawer.parentElement.clientWidth;
   const containerHeight = drawer.clientHeight;
-  const boxSize = 5;
+  drawer.innerHTML = '';
+  const boxSize = 5.005;
 
-  const numberOfColumns = Math.floor(1100 / boxSize);
+  const numberOfColumns = Math.floor(containerWidth / boxSize);
   const numberOfRows = Math.floor(containerHeight / boxSize);
   const totalBoxes = numberOfColumns * numberOfRows;
-  console.log(totalBoxes);
 
-  for (let i = 0; i < totalBoxes; i++) {
-    const box = document.createElement('div');
-    drawer.appendChild(box);
+  for (let i = 0; i < numberOfColumns; i++) {
+    for (let j = 0; j < numberOfRows; j++) {
+      const box = document.createElement('div');
+      drawer.appendChild(box);
+    }
   }
 })

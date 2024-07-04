@@ -9,34 +9,53 @@
 </head>
 <body>
   <div id="container">
-    <header>
-      <h1>Odin Etch & Sketch</h1>
+    <header class="hero">
+      <div class="title">
+        <h1>Odin Etch & Sketch</h1>
+      </div>
     </header>
     <main>
       <div class="main-container">
+        <div class="info btn">
+          <i class="fas fa-info"></i>
+        </div>
         <div class="drawer-container">
           <div id="drawer">
           </div>
         </div>
         <aside id="options">
-          <div class="size">
-            <div id="x-16" class="btn">16x16</div>
-            <div id="x-32" class="btn">32x32</div>
-            <div id="x-size" class="btn">Enter the Size</div>
-            <div id="free-drawing" class="btn">Free Drawing</div>
-          </div>
-          <div class="colors">
-            <div class="btn"></div>
-            <div class="btn"></div>
-            <div class="btn"></div>
-            <div class="btn"></div>
-            <div class="btn"></div>
-            <div class="btn"></div>
-            <input class="btn" type="color">
-          </div>
-          <div class="eraser">
-            <button class="btn"><i class="fas fa-eraser"></i></button>
-            <button class="btn">Reset</button>
+          <div class="option-wrapper">
+            <div class="size">
+              <div id="x-16" class="btn">16x16</div>
+              <div id="x-32" class="btn">32x32</div>
+              <div id="x-size" class="btn">Enter the Size</div>
+              <div id="free-drawing" class="btn">Free Drawing</div>
+            </div>
+            <div class="colors">
+              <div class="btn left-top">
+                <div class="background"></div>
+              </div>
+              <div class="btn center">
+                <div class="background"></div>
+              </div>
+              <div class="btn right-top">
+                <div class="background"></div>
+              </div>
+              <div class="btn left-bottom">
+                <div class="background"></div>
+              </div>
+              <div class="btn">
+                <div class="background"></div>
+              </div>
+              <div class="btn right-bottom">
+                <div class="background"></div>
+              </div>
+              <input class="btn" type="color">
+            </div>
+            <div class="eraser">
+              <button class="btn"><i class="fas fa-eraser"></i></button>
+              <button class="btn">Reset</button>
+            </div>
           </div>
         </aside>
       </div>
