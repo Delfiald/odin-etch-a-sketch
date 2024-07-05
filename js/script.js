@@ -51,3 +51,11 @@ freeDrawing.addEventListener('click', (e) => {
     }
   }
 })
+
+const settings = document.querySelector('#settings');
+const settingsBtn = document.querySelector('.settings-button');
+
+settingsBtn.addEventListener('click', (e) => {
+  settings.classList.toggle('show');
+  settingsBtn.classList.toggle('clicked');
+})

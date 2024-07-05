@@ -31,6 +31,7 @@ body {
 }
 
 #container {
+  position: relative;
   text-align: center;
   padding: 1rem;
   width: 100vw;
@@ -49,7 +50,6 @@ body {
 }
 
 .main-container {
-  position: relative;
   background: #f4f4f4;
   margin: 1rem;
   border-radius: 15px;
@@ -224,4 +224,85 @@ body {
   color: #333;
   background: #fff;
   font-size: 1em;
+}
+
+#settings {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  transition: 1s all ease;
+}
+
+#settings.show {
+  transform: translateX(-25vw);
+}
+
+#settings .settings-button {
+  gap: 1.5rem;
+  position: absolute;
+  top: calc(50% - 100px);
+  right: -150px;
+  transition: .5s all ease;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 2rem;
+  background: #fff;
+}
+
+#settings .settings-button:hover {
+  transform: translateX(-50px);
+  opacity: 1;
+}
+
+#settings .settings-button.clicked:hover {
+  transform: none;
+}
+
+
+#settings.show .arrow {
+  transform: scale(-1);
+}
+
+#settings .settings-button .gear {
+  transition: 1s all .5s ease;
+}
+
+#settings .settings-button:hover .gear {
+  transform: rotate(270deg);
+}
+
+#settings .settings-wrapper {
+  position: absolute;
+  top: 0;
+  right: -25vw;
+  width: 25vw;
+  height: 100vh;
+  background: #fff;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#settings .settings-wrapper > .sizes, 
+#settings .settings-wrapper > .background {
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  text-align: left;
+  padding: .5rem 1rem;
+}
+
+#settings .settings-wrapper > div h2 {
+  color: #333;
 }
