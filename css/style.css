@@ -51,7 +51,8 @@ body {
 
 .main-container {
   background: #f4f4f4;
-  margin: 1rem;
+  max-width: 1400px;
+  margin: 1rem auto;
   border-radius: 15px;
   padding: 1rem;
   display: flex;
@@ -122,7 +123,7 @@ body {
 
 #options .option-wrapper {
   border: 1px solid #ccc;
-  padding: 0 1rem;
+  padding: 1rem;
   border-radius: 5px;
 }
 
@@ -272,7 +273,7 @@ body {
 }
 
 #settings .settings-button .gear {
-  transition: 1s all .5s ease;
+  transition: 1s all ease;
 }
 
 #settings .settings-button:hover .gear {
@@ -297,12 +298,26 @@ body {
 
 #settings .settings-wrapper > .sizes, 
 #settings .settings-wrapper > .background {
-  border-bottom: 1px solid #ccc;
+  flex: 1;
   width: 100%;
   text-align: left;
   padding: .5rem 1rem;
 }
 
 #settings .settings-wrapper > div h2 {
+  border-bottom: 1px solid #ccc;
   color: #333;
+}
+
+#settings .settings-wrapper > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#settings .settings-wrapper #main-footer {
+  margin-top: auto;
 }
