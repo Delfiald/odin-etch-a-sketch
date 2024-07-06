@@ -127,21 +127,6 @@ body {
   border-radius: 5px;
 }
 
-#options .size {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
-  flex-wrap: wrap;
-}
-
-#options .size > .btn {
-  padding: 1rem;
-  background: var(--secondary-color);
-  border-radius: 5px;
-}
-
 #options .colors {
   display: flex;
   align-items: center;
@@ -318,6 +303,109 @@ body {
   gap: 1rem;
 }
 
+#settings .size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+#settings .size > .btn {
+  padding: 1rem;
+  background: var(--secondary-color);
+  border-radius: 5px;
+}
+
+#settings .background {
+  display: flex;
+  flex-direction: column;
+}
+
+#settings .background input {
+  margin: 1rem;
+  transform: scale(2);
+  border-radius: 5px;
+}
+
 #settings .settings-wrapper #main-footer {
   margin-top: auto;
+}
+
+#info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+#info.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+#info .info-wrapper {
+  width: 100%;
+  max-width: 50vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 5px;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0) translateY(-50px);
+  transition: .5s all ease;
+}
+
+#info.show .info-wrapper {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+#info .info-top {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#info .btn {
+  border: none;
+}
+
+#info .info-content{
+  flex: 1;
+}
+
+#info .socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  width: 100%;
 }

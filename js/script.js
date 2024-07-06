@@ -59,3 +59,15 @@ settingsBtn.addEventListener('click', (e) => {
   settings.classList.toggle('show');
   settingsBtn.classList.toggle('clicked');
 })
+
+const infoBtn = document.querySelector('#info-button');
+const info = document.querySelector('#info');
+const infoBackBtn = document.querySelector('#info .back-button');
+
+infoBtn.addEventListener('click', (e) => {
+  info.classList.add('show');
+})
+
+infoBackBtn.addEventListener('click', (e) => {
+  info.classList.remove('show');
+})
