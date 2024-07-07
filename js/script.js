@@ -37,7 +37,16 @@ size.forEach((item, index) => {
         setDrawer(32);
         break;
       case 2:
+        item.setAttribute('placeholder', '');
+      
+        item.addEventListener('blur', function() {
+          if (item.value === '') {
+            item.setAttribute('placeholder', 'Enter the Size');
+          }
+        });
+
         item.classList.remove('active');
+
         setDrawer();
         break;
       case 3:
