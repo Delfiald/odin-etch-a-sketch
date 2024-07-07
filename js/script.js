@@ -26,30 +26,26 @@ size.forEach((item, index) => {
     drawer.innerHTML = '';
     size.forEach(i => i.classList.remove('active'));
 
-    item.classList.add('active');
-
     console.log(index);
     switch(index){
       case 0:
+        item.classList.add('active');
         setDrawer(16);
         break;
       case 1:
+        item.classList.add('active');
         setDrawer(32);
         break;
       case 2:
-        item.setAttribute('placeholder', '');
-      
-        item.addEventListener('blur', function() {
-          if (item.value === '') {
-            item.setAttribute('placeholder', 'Enter the Size');
-          }
-        });
-
-        item.classList.remove('active');
-
-        setDrawer();
+        if(sizeX.value < 1 || sizeX.value > 100) {
+          alert("Size Must be 1 to 100");
+          //Set this to pop up with message because alert is bad lol
+        }else {
+          setDrawer(sizeX.value);
+        }
         break;
       case 3:
+        item.classList.add('active');
         freeDraw();
         break;
       default:
@@ -58,22 +54,23 @@ size.forEach((item, index) => {
   })
 })
 
+document.addEventListener('click', (e) => {
+  if(e.target.id === 'x-size'){
+    sizeX.setAttribute('placeholder', '');
+      
+    sizeX.addEventListener('blur', function() {
+      if (sizeX.value === '') {
+        sizeX.setAttribute('placeholder', 'Enter the Size');
+      }
+    });
+    
+    document.querySelector('.manual-size .btn').classList.add('show');
+  }else if(!e.target.closest('.manual-size .btn')) {
+    document.querySelector('.manual-size .btn').classList.remove('show');
+  }
+})
+
 setDrawer(16);
-
-// size16.addEventListener('click', (e) => {
-//   setDrawer(16);
-//   size16.classList.add('active');
-// })
-
-// size32.addEventListener('click', (e) => {
-//   setDrawer(32);
-//   size32.classList.add('active');
-// })
-
-// sizeX.addEventListener('click', (e) => {
-//   setDrawer(prompt('Set Size (Max 100)'));
-//   sizeX.classList.add('active');
-// })
 
 const freeDraw = () => {
   const containerWidth = drawer.parentElement.clientWidth;

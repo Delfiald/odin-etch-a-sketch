@@ -106,7 +106,7 @@ body {
 #drawer > div {
   width: 5px;
   height: 5px;
-  /* border: 1px solid #000; */
+  border: 1px solid #000;
   box-sizing: border-box;
   margin: 0;
   background: #fff;
@@ -277,7 +277,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   padding: 1rem;
 }
 
@@ -294,7 +293,8 @@ body {
   color: #333;
 }
 
-#settings .settings-wrapper > div > div {
+#settings .settings-wrapper .sizes > div,
+#settings .settings-wrapper .visuals > div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,11 +315,34 @@ body {
 #settings .size > .btn {
   flex: 1 1 100px;
   position: relative;
-  padding: 1rem;
+  padding: .8rem;
   background: var(--secondary-color);
   border-radius: 5px;
   text-align: center;
+}
+
+#settings .size .manual-size {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#settings .size .manual-size input[type="number"]{
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
   -moz-appearance: textfield;
+}
+
+#settings .size .manual-size .btn {
+  padding: .5rem 1rem;
+  display: none;
+}
+
+#settings .size .manual-size .btn.show {
+  display: block;
 }
 
 #settings .size > input[type="number"]::placeholder {
