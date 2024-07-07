@@ -313,9 +313,33 @@ body {
 }
 
 #settings .size > .btn {
+  flex: 1 1 100px;
+  position: relative;
   padding: 1rem;
   background: var(--secondary-color);
   border-radius: 5px;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+#settings .size > input[type="number"]::placeholder {
+  color: #333;
+  font-size: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#settings .size .active {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+#settings .size input[type="number"].active::placeholder {
+  color: #fff;
 }
 
 #settings .background {
@@ -376,7 +400,7 @@ body {
   border-radius: 5px;
   z-index: 2;
   opacity: 0;
-  transform: scale(0) translateY(-50px);
+  transform: scale(0) translateY(-300px);
   transition: .5s all ease;
 }
 

@@ -45,7 +45,7 @@
             </div>
             <div class="eraser">
               <button class="btn"><i class="fas fa-eraser"></i></button>
-              <button class="btn">Reset</button>
+              <button class="btn">Clear</button>
             </div>
           </div>
         </aside>
@@ -63,17 +63,17 @@
         </div>
         <div class="sizes">
           <h2>Sizes</h2>
-          <div class="size">
-            <div id="x-16" class="btn">16x16</div>
+          <div id="size" class="size">
+            <div id="x-16" class="btn active">16x16</div>
             <div id="x-32" class="btn">32x32</div>
-            <div id="x-size" class="btn">Enter the Size</div>
+            <input type="number" id="x-size" class="btn" placeholder="Enter the Size"></input>
             <div id="free-drawing" class="btn">Free Drawing</div>
           </div>
         </div>
         <div class="background">
           <h2>Background</h2>
           <div>
-            <input class="btn" type="color">
+            <input class="btn" type="color" value="#ffffff">
           </div>
         </div>
         <footer id="main-footer">
