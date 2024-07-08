@@ -91,20 +91,31 @@
     </aside>
 
     <section id="info">
-      <div class="info-wrapper">
-        <div class="info-top">
-          <div class="back-button btn"><i class="fas fa-arrow-left"></i></div>
+      <div class="info-container">
+        <div class="info-wrapper">
+          <div class="info-top">
+            <div class="back-button btn"><i class="fas fa-arrow-left"></i></div>
+          </div>
+          <div class="info-content-wrapper">
+            <div class="title">
+              <h2>Information</h2>
+            </div>
+            <div class="info-content">
+              <p>Draw Mode: <span id="draw-mode">Manual Size</span></p>
+              <p>Box Size: <span id="box-size">10px</span></p>
+              <p>Grid Size: <span id="grid-size">16x16</span></p>
+              <p>Grid Show: <span id="grid-show">Off</span></p>
+            </div>
+          </div>
         </div>
-        <div class="info-content-wrapper">
-          <div class="title">
-            <h2>Information</h2>
+        <div class="error-wrapper">
+          <div class="error-header">
+            <i class="fas fa-xmark fa-6x"></i>
           </div>
-          <div class="info-content">
-            <p>Draw Mode: <span id="draw-mode">Manual Size</span></p>
-            <p>Box Size: <span id="box-size">10px</span></p>
-            <p>Grid Size: <span id="grid-size">16x16</span></p>
-            <p>Grid Show: <span id="grid-show">Off</span></p>
+          <div class="error-text">
+            <p>Size Limited to 1-100 for Performance Purposes</p>
           </div>
+          <div class="back-button btn">Close</div>
         </div>
       </div>
     </section>

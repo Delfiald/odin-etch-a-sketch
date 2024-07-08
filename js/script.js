@@ -15,6 +15,8 @@ const informationContent = {
   gridShow: 'Off'
 }
 
+const info = document.querySelector('#info');
+
 const setDrawer = (drawerSize) => {
   if(drawerSize === 16){
     informationContent.drawMode = '16x16 Mode';
@@ -43,28 +45,30 @@ const setDrawer = (drawerSize) => {
 
 size.forEach((item, index) => {
   item.addEventListener('click', (e) => {
-    drawer.innerHTML = '';
     size.forEach(i => i.classList.remove('active'));
 
     switch(index){
       case 0:
         item.classList.add('active');
+        drawer.innerHTML = '';
         setDrawer(16);
         break;
       case 1:
         item.classList.add('active');
+        drawer.innerHTML = '';
         setDrawer(32);
         break;
       case 2:
         if(sizeX.value < 1 || sizeX.value > 100) {
-          alert("Size Must be 1 to 100");
-          //Set this to pop up with message because alert is bad lol
+          info.classList.add('error');
         }else {
+          drawer.innerHTML = '';
           setDrawer(sizeX.value);
         }
         break;
       case 3:
         item.classList.add('active');
+        drawer.innerHTML = '';
         freeDraw();
         break;
       default:
@@ -122,16 +126,18 @@ settingsBtn.addEventListener('click', (e) => {
 })
 
 const infoBtn = document.querySelector('#info-button');
-const info = document.querySelector('#info');
-const infoBackBtn = document.querySelector('#info .back-button');
+const infoBackBtn = document.querySelectorAll('#info .back-button');
 
 infoBtn.addEventListener('click', (e) => {
   info.classList.add('show');
   setInfoContent();
 })
 
-infoBackBtn.addEventListener('click', (e) => {
-  info.classList.remove('show');
+infoBackBtn.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    info.classList.remove('show');
+    info.classList.remove('error');
+  })
 })
 
 // Adding Draw Logic
