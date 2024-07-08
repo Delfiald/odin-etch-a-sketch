@@ -7,7 +7,25 @@ const freeDrawing = document.querySelector('#free-drawing');
 
 const boxes = [];
 
+// Information Content
+const informationContent = {
+  drawMode: '16x16',
+  boxSize: '16x16',
+  gridSize: '20px',
+  gridShow: 'Off'
+}
+
 const setDrawer = (drawerSize) => {
+  if(drawerSize === 16){
+    informationContent.drawMode = '16x16 Mode';
+    informationContent.boxSize = '16x16';
+  }else if(drawerSize === 32){
+    informationContent.drawMode = '32x32 Mode';
+    informationContent.boxSize = '32x32';
+  }else{
+    informationContent.drawMode = 'Custom Mode';
+    informationContent.drawMode = `${drawerSize}x${drawerSize}`;
+  }
   const containerHeight = drawer.clientHeight;
   
   drawer.innerHTML = '';
@@ -19,6 +37,8 @@ const setDrawer = (drawerSize) => {
       drawer.append(boxes[y]);
     }
   }
+
+  informationContent.gridSize = `${containerHeight/drawerSize}px`;
 }
 
 size.forEach((item, index) => {
@@ -26,7 +46,6 @@ size.forEach((item, index) => {
     drawer.innerHTML = '';
     size.forEach(i => i.classList.remove('active'));
 
-    console.log(index);
     switch(index){
       case 0:
         item.classList.add('active');
@@ -73,6 +92,8 @@ document.addEventListener('click', (e) => {
 setDrawer(16);
 
 const freeDraw = () => {
+  informationContent.drawMode = 'Free Draw Mode';
+  
   const containerWidth = drawer.parentElement.clientWidth;
   const containerHeight = drawer.clientHeight;
   drawer.innerHTML = '';
@@ -88,6 +109,8 @@ const freeDraw = () => {
       drawer.appendChild(box);
     }
   }
+  informationContent.boxSize = `${numberOfColumns}x${numberOfRows}`;
+  informationContent.gridSize = `${boxSize}px`;
 }
 
 const settings = document.querySelector('#settings');
@@ -104,6 +127,7 @@ const infoBackBtn = document.querySelector('#info .back-button');
 
 infoBtn.addEventListener('click', (e) => {
   info.classList.add('show');
+  setInfoContent();
 })
 
 infoBackBtn.addEventListener('click', (e) => {
@@ -113,5 +137,40 @@ infoBackBtn.addEventListener('click', (e) => {
 // Adding Draw Logic
 
 // Change latest user color to 6 box color
+// Color saved when user start using a color they pick on drawer
+const colors = document.querySelectorAll('.colors div .background');
+const getColor = document.querySelector('#color')
+getColor.addEventListener('input', () => {
+  colors.forEach((color, index) => {
+    color.style.background = getColor.value;
+  })
+})
 
-// Make drawer color works
+// Background Colors
+const drawerBg = document.querySelector('#background');
+drawerBg.addEventListener('input', () => {
+  drawer.querySelectorAll('div').forEach((box, index) => {
+    box.style.background = drawerBg.value;
+  })
+})
+
+// Grid
+const gridShow = document.querySelector('#grid');
+gridShow.addEventListener('click', (e) => {
+  if(gridShow.checked){
+    drawer.classList.add('grid');
+    informationContent.gridShow = (gridShow.checked);
+  }else{
+    drawer.classList.remove('grid');
+    informationContent.gridShow = (gridShow.checked);
+  }
+})
+
+const infoContent = document.querySelectorAll('.info-content span')
+
+const setInfoContent = () => {
+  console.log('run');
+  Object.keys(informationContent).forEach((key, index) => {
+    infoContent[index].textContent = informationContent[key];
+  })
+}
