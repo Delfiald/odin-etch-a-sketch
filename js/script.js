@@ -1,39 +1,182 @@
-const container = document.querySelector("#container");
-const wrapper = container.querySelector(".wrapper");
-const erase = document.querySelector(".eraser");
-const colorPicker = document.querySelector("#color-picker");
+const drawer = document.querySelector('#drawer');
+const size = document.querySelectorAll('#size .btn');
+const size16 = document.querySelector('#x-16');
+const size32 = document.querySelector('#x-32');
+const sizeX = document.querySelector('#x-size');
+const freeDrawing = document.querySelector('#free-drawing');
 
-const div = [];
+const boxes = [];
 
-let divItem = 3500;
-
-for(let i = 0; i < divItem; i++){
-  div[i] = document.createElement("div");
-  wrapper.appendChild(div[i]);
+// Information Content
+const informationContent = {
+  drawMode: '16x16',
+  boxSize: '16x16',
+  gridSize: '20px',
+  gridShow: 'Off'
 }
 
-let isDragged = false;
-let isErase = false;
+const info = document.querySelector('#info');
 
+const setDrawer = (drawerSize) => {
+  if(drawerSize === 16){
+    informationContent.drawMode = '16x16 Mode';
+    informationContent.boxSize = '16x16';
+  }else if(drawerSize === 32){
+    informationContent.drawMode = '32x32 Mode';
+    informationContent.boxSize = '32x32';
+  }else{
+    informationContent.drawMode = 'Custom Mode';
+    informationContent.drawMode = `${drawerSize}x${drawerSize}`;
+  }
+  const containerHeight = drawer.clientHeight;
+  
+  drawer.innerHTML = '';
+  for(let x = 0; x < drawerSize; x++){
+    for(let y = 0; y < drawerSize; y++){
+      boxes[y] = document.createElement('div');
+      boxes[y].style.flex = `1 1 ${100/drawerSize}%`;
+      boxes[y].style.width = `${containerHeight/drawerSize}px`;
+      drawer.append(boxes[y]);
+    }
+  }
 
-div.forEach((item, index) => {
-  item.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    item.style.background = colorPicker.value;
-    isDragged = true;
-  })
+  informationContent.gridSize = `${containerHeight/drawerSize}px`;
+}
 
-  item.addEventListener('mouseup', (e) => {
-    isDragged = false;
-  })
+size.forEach((item, index) => {
+  item.addEventListener('click', (e) => {
+    size.forEach(i => i.classList.remove('active'));
 
-  item.addEventListener('mousemove', (e) => {
-    if(isDragged){
-      item.style.background = colorPicker.value;
+    switch(index){
+      case 0:
+        item.classList.add('active');
+        drawer.innerHTML = '';
+        setDrawer(16);
+        break;
+      case 1:
+        item.classList.add('active');
+        drawer.innerHTML = '';
+        setDrawer(32);
+        break;
+      case 2:
+        if(sizeX.value < 1 || sizeX.value > 100) {
+          info.classList.add('error');
+        }else {
+          drawer.innerHTML = '';
+          setDrawer(sizeX.value);
+        }
+        break;
+      case 3:
+        item.classList.add('active');
+        drawer.innerHTML = '';
+        freeDraw();
+        break;
+      default:
+        break;
     }
   })
+})
 
-  erase.addEventListener('click', () => {
-    item.style.background = '#fff';
+document.addEventListener('click', (e) => {
+  if(e.target.id === 'x-size'){
+    sizeX.setAttribute('placeholder', '');
+      
+    sizeX.addEventListener('blur', function() {
+      if (sizeX.value === '') {
+        sizeX.setAttribute('placeholder', 'Enter the Size');
+      }
+    });
+    
+    document.querySelector('.manual-size .btn').classList.add('show');
+  }else if(!e.target.closest('.manual-size .btn')) {
+    document.querySelector('.manual-size .btn').classList.remove('show');
+  }
+})
+
+setDrawer(16);
+
+const freeDraw = () => {
+  informationContent.drawMode = 'Free Draw Mode';
+  
+  const containerWidth = drawer.parentElement.clientWidth;
+  const containerHeight = drawer.clientHeight;
+  drawer.innerHTML = '';
+  const boxSize = 5;
+
+  const numberOfColumns = Math.floor(containerWidth / boxSize);
+  const numberOfRows = Math.floor(containerHeight / boxSize);
+  const totalBoxes = numberOfColumns * numberOfRows;
+
+  for (let i = 0; i < numberOfColumns; i++) {
+    for (let j = 0; j < numberOfRows; j++) {
+      const box = document.createElement('div');
+      drawer.appendChild(box);
+    }
+  }
+  informationContent.boxSize = `${numberOfColumns}x${numberOfRows}`;
+  informationContent.gridSize = `${boxSize}px`;
+}
+
+const settings = document.querySelector('#settings');
+const settingsBtn = document.querySelector('.settings-button');
+
+settingsBtn.addEventListener('click', (e) => {
+  settings.classList.toggle('show');
+  settingsBtn.classList.toggle('clicked');
+})
+
+const infoBtn = document.querySelector('#info-button');
+const infoBackBtn = document.querySelectorAll('#info .back-button');
+
+infoBtn.addEventListener('click', (e) => {
+  info.classList.add('show');
+  setInfoContent();
+})
+
+infoBackBtn.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    info.classList.remove('show');
+    info.classList.remove('error');
   })
 })
+
+// Adding Draw Logic
+
+// Change latest user color to 6 box color
+// Color saved when user start using a color they pick on drawer
+const colors = document.querySelectorAll('.colors div .background');
+const getColor = document.querySelector('#color')
+getColor.addEventListener('input', () => {
+  colors.forEach((color, index) => {
+    color.style.background = getColor.value;
+  })
+})
+
+// Background Colors
+const drawerBg = document.querySelector('#background');
+drawerBg.addEventListener('input', () => {
+  drawer.querySelectorAll('div').forEach((box, index) => {
+    box.style.background = drawerBg.value;
+  })
+})
+
+// Grid
+const gridShow = document.querySelector('#grid');
+gridShow.addEventListener('click', (e) => {
+  if(gridShow.checked){
+    drawer.classList.add('grid');
+    informationContent.gridShow = (gridShow.checked);
+  }else{
+    drawer.classList.remove('grid');
+    informationContent.gridShow = (gridShow.checked);
+  }
+})
+
+const infoContent = document.querySelectorAll('.info-content span')
+
+const setInfoContent = () => {
+  console.log('run');
+  Object.keys(informationContent).forEach((key, index) => {
+    infoContent[index].textContent = informationContent[key];
+  })
+}
