@@ -27,13 +27,21 @@ document.addEventListener('mousedown', (e) => {
   if (e.target.closest('#drawer div')) {
     e.preventDefault();
     mouseDown = true;
-    setPencilColor(e);
+    if(setEraser){
+      erase(e);
+    }else{
+      setPencilColor(e);
+    }
   }
 });
   
 drawer.addEventListener('mouseenter', (e) => {
   if (mouseDown && e.target.closest('div')) {
-    setPencilColor(e);
+    if(setEraser){
+      erase(e);
+    }else{
+      setPencilColor(e);
+    }
   }
 }, true);
   
@@ -43,6 +51,11 @@ document.addEventListener('mouseup', () => {
     mouseDown = false;
   }
 });
+
+const erase = (box) => {
+  box.target.closest('div').style.background = backgroundColor;
+  box.target.closest('div').classList.remove('filled');
+}
 
 const setPencilColor = (box) => {
   if(subColors){
@@ -179,22 +192,20 @@ infoBackBtn.forEach((button) => {
 })
 
 // Adding set draw color that active
-// ie: if user click main color that color will active, and
-// user set 1 of 6 colors that color will active, for now
-// color that active only main color
+// user set 1 of 6 colors that color will active
 // Change latest user color to 6 box color
 // Color saved when user start using a color they pick on drawer
-
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.colors .btn');
   if(btn){
     if((btn.tagName === 'INPUT' && btn.type === 'color')
     ){
       subColors = false;
+      setEraser = false;
     }else {
       const btnSecondary = btn.querySelector('.background');
       if(btnSecondary){
-        console.log('run');
+        setEraser = false;
         subColors = true;
         activeColors = getComputedStyle(btnSecondary).backgroundColor;
       }
@@ -209,20 +220,26 @@ getColor.addEventListener('input', () => {
   })
 })
 
-// Clear
+// Eraser
+// Change Cursor (maybe(?))
 const drawerBg = document.querySelector('#background');
 let backgroundColor = drawerBg.value;
+let setEraser = false;
+const eraserButton = document.querySelector('.eraser-button');
+eraserButton.addEventListener('click', (e) => {
+  setEraser = true;
+})
 
+// Clear
 const clearButton = document.querySelector('.clear-button');
 clearButton.addEventListener('click', (e) => {
   drawer.querySelectorAll('div').forEach((box) => {
     box.style.background = backgroundColor;
-    box.classList.remove = 'filled';
+    box.classList.remove('filled');
   })
 })
 
 // Background Colors
-// Set background colors only change to grid that not user draw yet
 drawerBg.addEventListener('input', () => {
   drawer.querySelectorAll('div').forEach((box, index) => {
     if(!box.classList.contains('filled')){
