@@ -17,6 +17,43 @@ const informationContent = {
 
 const info = document.querySelector('#info');
 
+const getColor = document.querySelector('#color');
+
+let subColors = false;
+
+// Adding Draw Logic
+let mouseDown = false;
+document.addEventListener('mousedown', (e) => {
+  if (e.target.closest('#drawer div')) {
+    e.preventDefault();
+    mouseDown = true;
+    setPencilColor(e);
+  }
+});
+  
+drawer.addEventListener('mouseenter', (e) => {
+  if (mouseDown && e.target.closest('div')) {
+    setPencilColor(e);
+  }
+}, true);
+  
+document.addEventListener('mouseup', () => {
+  if (mouseDown) {
+    console.log("not clicked");
+    mouseDown = false;
+  }
+});
+
+const setPencilColor = (box) => {
+  if(subColors){
+    box.target.closest('div').style.background = activeColors;
+    box.target.closest('div').classList.add('filled');
+  }else{
+    box.target.closest('div').style.background = getColor.value;
+    box.target.closest('div').classList.add('filled');
+  }
+}
+
 const setDrawer = (drawerSize) => {
   if(drawerSize === 16){
     informationContent.drawMode = '16x16 Mode';
@@ -41,6 +78,7 @@ const setDrawer = (drawerSize) => {
   }
 
   informationContent.gridSize = `${containerHeight/drawerSize}px`;
+
 }
 
 size.forEach((item, index) => {
@@ -140,23 +178,57 @@ infoBackBtn.forEach((button) => {
   })
 })
 
-// Adding Draw Logic
-
+// Adding set draw color that active
+// ie: if user click main color that color will active, and
+// user set 1 of 6 colors that color will active, for now
+// color that active only main color
 // Change latest user color to 6 box color
 // Color saved when user start using a color they pick on drawer
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.colors .btn');
+  if(btn){
+    if((btn.tagName === 'INPUT' && btn.type === 'color')
+    ){
+      subColors = false;
+    }else {
+      const btnSecondary = btn.querySelector('.background');
+      if(btnSecondary){
+        console.log('run');
+        subColors = true;
+        activeColors = getComputedStyle(btnSecondary).backgroundColor;
+      }
+    }
+  }
+})
+
 const colors = document.querySelectorAll('.colors div .background');
-const getColor = document.querySelector('#color')
 getColor.addEventListener('input', () => {
   colors.forEach((color, index) => {
-    color.style.background = getColor.value;
+    color.style.backgroundColor = getColor.value;
+  })
+})
+
+// Clear
+const drawerBg = document.querySelector('#background');
+let backgroundColor = drawerBg.value;
+
+const clearButton = document.querySelector('.clear-button');
+clearButton.addEventListener('click', (e) => {
+  drawer.querySelectorAll('div').forEach((box) => {
+    box.style.background = backgroundColor;
+    box.classList.remove = 'filled';
   })
 })
 
 // Background Colors
-const drawerBg = document.querySelector('#background');
+// Set background colors only change to grid that not user draw yet
 drawerBg.addEventListener('input', () => {
   drawer.querySelectorAll('div').forEach((box, index) => {
-    box.style.background = drawerBg.value;
+    if(!box.classList.contains('filled')){
+      backgroundColor = drawerBg.value
+      box.style.background = backgroundColor;
+    }
   })
 })
 
