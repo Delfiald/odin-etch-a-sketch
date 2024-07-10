@@ -21,6 +21,9 @@ const getColor = document.querySelector('#color');
 
 let subColors = false;
 
+const drawerBg = document.querySelector('#background');
+let backgroundColor = drawerBg.value;
+
 // Adding Draw Logic
 let mouseDown = false;
 document.addEventListener('mousedown', (e) => {
@@ -86,6 +89,7 @@ const setDrawer = (drawerSize) => {
       boxes[y] = document.createElement('div');
       boxes[y].style.flex = `1 1 ${100/drawerSize}%`;
       boxes[y].style.width = `${containerHeight/drawerSize}px`;
+      boxes[y].style.background = backgroundColor;
       drawer.append(boxes[y]);
     }
   }
@@ -162,6 +166,7 @@ const freeDraw = () => {
     for (let j = 0; j < numberOfRows; j++) {
       const box = document.createElement('div');
       drawer.appendChild(box);
+      box.style.background = backgroundColor;
     }
   }
   informationContent.boxSize = `${numberOfColumns}x${numberOfRows}`;
@@ -222,8 +227,6 @@ getColor.addEventListener('input', () => {
 
 // Eraser
 // Change Cursor (maybe(?))
-const drawerBg = document.querySelector('#background');
-let backgroundColor = drawerBg.value;
 let setEraser = false;
 const eraserButton = document.querySelector('.eraser-button');
 eraserButton.addEventListener('click', (e) => {
@@ -240,6 +243,7 @@ clearButton.addEventListener('click', (e) => {
 })
 
 // Background Colors
+// Keep background colors even change size or drawing mode
 drawerBg.addEventListener('input', () => {
   drawer.querySelectorAll('div').forEach((box, index) => {
     if(!box.classList.contains('filled')){
