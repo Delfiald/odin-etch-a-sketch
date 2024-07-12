@@ -197,12 +197,10 @@ infoBackBtn.forEach((button) => {
 })
 
 // Adding set draw color that active
-// user set 1 of 6 colors that color will active
-// Change latest user color to 6 box color
-// Color saved when user start using a color they pick on drawer
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.colors .btn');
   if(btn){
+    document.body.style.cursor = 'default';
     if((btn.tagName === 'INPUT' && btn.type === 'color')
     ){
       subColors = false;
@@ -218,19 +216,31 @@ document.addEventListener('click', (e) => {
   }
 })
 
+const listColor = [];
+
+const add = (currentColor) => {
+  if (listColor.length === 6) {
+    listColor.pop();
+  }
+  listColor.unshift(currentColor);
+
+  console.log(listColor);
+}
+
 const colors = document.querySelectorAll('.colors div .background');
-getColor.addEventListener('input', () => {
+getColor.addEventListener('change', () => {
+  add(getColor.value);
   colors.forEach((color, index) => {
-    color.style.backgroundColor = getColor.value;
-  })
-})
+    color.style.backgroundColor = listColor[index] || '#fff';
+  });
+});
 
 // Eraser
-// Change Cursor (maybe(?))
 let setEraser = false;
 const eraserButton = document.querySelector('.eraser-button');
 eraserButton.addEventListener('click', (e) => {
   setEraser = true;
+  document.body.style.cursor = 'url(../assets/eraser-cursor.png), auto';
 })
 
 // Clear
@@ -243,7 +253,6 @@ clearButton.addEventListener('click', (e) => {
 })
 
 // Background Colors
-// Keep background colors even change size or drawing mode
 drawerBg.addEventListener('input', () => {
   drawer.querySelectorAll('div').forEach((box, index) => {
     if(!box.classList.contains('filled')){
@@ -254,6 +263,7 @@ drawerBg.addEventListener('input', () => {
 })
 
 // Grid
+// Grid color automatic change when background
 const gridShow = document.querySelector('#grid');
 gridShow.addEventListener('click', (e) => {
   if(gridShow.checked){
