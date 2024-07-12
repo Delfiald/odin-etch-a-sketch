@@ -3,6 +3,7 @@
 :root {
   --primary-color: #0009ff;
   --secondary-color: #fff;
+  --grid-color: #000;
 }
 
 * {
@@ -112,7 +113,7 @@ body {
 }
 
 #drawer.grid > div {
-  border: 1px solid #000;
+  border: 1px solid var(--grid-color);
 }
 
 #options {

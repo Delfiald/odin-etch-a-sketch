@@ -258,6 +258,7 @@ drawerBg.addEventListener('input', () => {
     if(!box.classList.contains('filled')){
       backgroundColor = drawerBg.value
       box.style.background = backgroundColor;
+      document.documentElement.style.setProperty('--grid-color', gridColor(backgroundColor));
     }
   })
 })
@@ -274,6 +275,19 @@ gridShow.addEventListener('click', (e) => {
     informationContent.gridShow = (gridShow.checked);
   }
 })
+
+const gridColor = (backgroundColor) => {
+  backgroundColor = backgroundColor.substring(1);
+  const r = parseInt(backgroundColor.slice(0, 2), 16);
+  const g = parseInt(backgroundColor.slice(2, 4), 16);
+  const b = parseInt(backgroundColor.slice(4, 6), 16);
+
+  const compR = (255 - r).toString(16).padStart(2, '0');
+  const compG = (255 - g).toString(16).padStart(2, '0');
+  const compB = (255 - b).toString(16).padStart(2, '0');
+
+  return `#${compR}${compG}${compB}`;
+}
 
 const infoContent = document.querySelectorAll('.info-content span')
 
