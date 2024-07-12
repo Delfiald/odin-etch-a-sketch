@@ -17,6 +17,59 @@ const informationContent = {
 
 const info = document.querySelector('#info');
 
+const getColor = document.querySelector('#color');
+
+let subColors = false;
+
+const drawerBg = document.querySelector('#background');
+let backgroundColor = drawerBg.value;
+
+// Adding Draw Logic
+let mouseDown = false;
+document.addEventListener('mousedown', (e) => {
+  if (e.target.closest('#drawer div')) {
+    e.preventDefault();
+    mouseDown = true;
+    if(setEraser){
+      erase(e);
+    }else{
+      setPencilColor(e);
+    }
+  }
+});
+  
+drawer.addEventListener('mouseenter', (e) => {
+  if (mouseDown && e.target.closest('div')) {
+    if(setEraser){
+      erase(e);
+    }else{
+      setPencilColor(e);
+    }
+  }
+}, true);
+  
+document.addEventListener('mouseup', () => {
+  if (mouseDown) {
+    console.log("not clicked");
+    mouseDown = false;
+  }
+});
+
+const erase = (box) => {
+  box.target.closest('div').style.background = backgroundColor;
+  box.target.closest('div').classList.remove('filled');
+}
+
+const setPencilColor = (box) => {
+  if(subColors){
+    box.target.closest('div').style.background = activeColors;
+    box.target.closest('div').classList.add('filled');
+  }else{
+    box.target.closest('div').style.background = getColor.value;
+    box.target.closest('div').classList.add('filled');
+  }
+}
+
 const setDrawer = (drawerSize) => {
   if(drawerSize === 16){
     informationContent.drawMode = '16x16 Mode';
@@ -36,11 +89,13 @@ const setDrawer = (drawerSize) => {
       boxes[y] = document.createElement('div');
       boxes[y].style.flex = `1 1 ${100/drawerSize}%`;
       boxes[y].style.width = `${containerHeight/drawerSize}px`;
+      boxes[y].style.background = backgroundColor;
       drawer.append(boxes[y]);
     }
   }
 
   informationContent.gridSize = `${containerHeight/drawerSize}px`;
+
 }
 
 size.forEach((item, index) => {
@@ -111,6 +166,7 @@ const freeDraw = () => {
     for (let j = 0; j < numberOfRows; j++) {
       const box = document.createElement('div');
       drawer.appendChild(box);
+      box.style.background = backgroundColor;
     }
   }
   informationContent.boxSize = `${numberOfColumns}x${numberOfRows}`;
@@ -140,27 +196,75 @@ infoBackBtn.forEach((button) => {
   })
 })
 
-// Adding Draw Logic
+// Adding set draw color that active
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.colors .btn');
+  if(btn){
+    document.body.style.cursor = 'default';
+    if((btn.tagName === 'INPUT' && btn.type === 'color')
+    ){
+      subColors = false;
+      setEraser = false;
+    }else {
+      const btnSecondary = btn.querySelector('.background');
+      if(btnSecondary){
+        setEraser = false;
+        subColors = true;
+        activeColors = getComputedStyle(btnSecondary).backgroundColor;
+      }
+    }
+  }
+})
 
-// Change latest user color to 6 box color
-// Color saved when user start using a color they pick on drawer
+const listColor = [];
+
+const add = (currentColor) => {
+  if (listColor.length === 6) {
+    listColor.pop();
+  }
+  listColor.unshift(currentColor);
+
+  console.log(listColor);
+}
+
 const colors = document.querySelectorAll('.colors div .background');
-const getColor = document.querySelector('#color')
-getColor.addEventListener('input', () => {
+getColor.addEventListener('change', () => {
+  add(getColor.value);
   colors.forEach((color, index) => {
-    color.style.background = getColor.value;
+    color.style.backgroundColor = listColor[index] || '#fff';
+  });
+});
+
+// Eraser
+let setEraser = false;
+const eraserButton = document.querySelector('.eraser-button');
+eraserButton.addEventListener('click', (e) => {
+  setEraser = true;
+  document.body.style.cursor = 'url(../assets/eraser-cursor.png), auto';
+})
+
+// Clear
+const clearButton = document.querySelector('.clear-button');
+clearButton.addEventListener('click', (e) => {
+  drawer.querySelectorAll('div').forEach((box) => {
+    box.style.background = backgroundColor;
+    box.classList.remove('filled');
   })
 })
 
 // Background Colors
-const drawerBg = document.querySelector('#background');
 drawerBg.addEventListener('input', () => {
   drawer.querySelectorAll('div').forEach((box, index) => {
-    box.style.background = drawerBg.value;
+    if(!box.classList.contains('filled')){
+      backgroundColor = drawerBg.value
+      box.style.background = backgroundColor;
+      document.documentElement.style.setProperty('--grid-color', gridColor(backgroundColor));
+    }
   })
 })
 
 // Grid
+// Grid color automatic change when background
 const gridShow = document.querySelector('#grid');
 gridShow.addEventListener('click', (e) => {
   if(gridShow.checked){
@@ -171,6 +275,19 @@ gridShow.addEventListener('click', (e) => {
     informationContent.gridShow = (gridShow.checked);
   }
 })
+
+const gridColor = (backgroundColor) => {
+  backgroundColor = backgroundColor.substring(1);
+  const r = parseInt(backgroundColor.slice(0, 2), 16);
+  const g = parseInt(backgroundColor.slice(2, 4), 16);
+  const b = parseInt(backgroundColor.slice(4, 6), 16);
+
+  const compR = (255 - r).toString(16).padStart(2, '0');
+  const compG = (255 - g).toString(16).padStart(2, '0');
+  const compB = (255 - b).toString(16).padStart(2, '0');
+
+  return `#${compR}${compG}${compB}`;
+}
 
 const infoContent = document.querySelectorAll('.info-content span')
 
