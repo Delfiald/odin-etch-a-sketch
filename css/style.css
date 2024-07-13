@@ -93,8 +93,6 @@ input::-webkit-inner-spin-button {
 }
 
 #drawer > div {
-  width: 5px;
-  height: 5px;
   box-sizing: border-box;
   margin: 0;
   background: #fff;
