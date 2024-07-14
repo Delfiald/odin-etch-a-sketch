@@ -152,8 +152,6 @@ const setInformationContent = (drawerSizeX ,drawerSizeY, size) => {
 const createBoxes = (drawer, drawerSizeX, drawerSizeY, height, width, backgroundColor) => {
   boxes.length = 0;
 
-  console.log(drawerSizeX);
-  console.log(drawerSizeY);
   for(let x = 0; x < drawerSizeX; x++){
     for(let y = 0; y < drawerSizeY; y++){
       boxes[y] = document.createElement('div');
