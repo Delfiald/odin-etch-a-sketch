@@ -3,23 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./css/style.css">
   <title>Etch A Sketch</title>
 </head>
 <body>
   <div id="container">
-    <div class="options">
-      <div>
-        <label for="color-picker">Choose a Color</label>
-        <input type="color" id="color-picker" name="color-picker">
+    <header class="hero">
+      <div class="title">
+        <h1>Odin Etch & Sketch</h1>
       </div>
-      <button class="eraser">Eraser</button>
-    </div>
-    <div class="drawer">
-      <h1>This is Drawer</h1>
-      <div class="wrapper"></div>
-    </div>
+    </header>
+    <main>
+      <div class="main-container">
+        <div class="drawer-container">
+          <div id="drawer">
+          </div>
+        </div>
+        <aside id="options">
+          <div class="option-wrapper">
+            <div class="colors">
+              <div class="btn left-top">
+                <div class="background"></div>
+              </div>
+              <div class="btn center">
+                <div class="background"></div>
+              </div>
+              <div class="btn right-top">
+                <div class="background"></div>
+              </div>
+              <div class="btn left-bottom">
+                <div class="background"></div>
+              </div>
+              <div class="btn">
+                <div class="background"></div>
+              </div>
+              <div class="btn right-bottom">
+                <div class="background"></div>
+              </div>
+            </div>
+            <div class="colors">
+              <input id="color" class="btn" type="color" value="#000000">
+            </div>
+            <div class="eraser">
+              <button class="btn eraser-button"><i class="fas fa-eraser"></i></button>
+              <button class="btn clear-button">Clear</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <aside id="settings">
+      <div class="settings-button btn">
+        <i class="fas fa-chevron-left arrow"></i>
+        <i class="fas fa-gear gear"></i>
+      </div>
+      <div class="settings-wrapper">
+        <div id="info-button" class="btn">
+          <i class="fas fa-info"></i>
+        </div>
+        <div class="sizes">
+          <h2>Sizes</h2>
+          <div id="size" class="size">
+            <div class="btn active">16x16</div>
+            <div class="btn">32x32</div>
+            <div class="manual-size">
+              <input type="number" id="x-size" placeholder="Enter the Size"></input>
+              <div class="btn">Submit</div>
+            </div>
+            <div id="free-drawing" class="btn">Free Drawing</div>
+          </div>
+        </div>
+        <div class="visuals">
+          <h2>Visuals</h2>
+          <div>
+            <label for="background">Background</label>
+            <input class="btn" id="background" name="background" type="color" value="#ffffff">
+          </div>
+          <div>
+            <label for="grid">Grid</label>
+            <input type="checkbox" name="grid" id="grid">
+          </div>
+        </div>
+        <footer id="main-footer">
+          <p>The Odin Project &copy; 2024</p>
+        </footer>
+      </div>
+    </aside>
+
+    <section id="info">
+      <div class="info-container">
+        <div class="info-wrapper">
+          <div class="info-top">
+            <div class="back-button btn"><i class="fas fa-arrow-left"></i></div>
+          </div>
+          <div class="info-content-wrapper">
+            <div class="title">
+              <h2>Information</h2>
+            </div>
+            <div class="info-content">
+              <p>Draw Mode: <span id="draw-mode">Manual Size</span></p>
+              <p>Box Size: <span id="box-size">10px</span></p>
+              <p>Grid Size: <span id="grid-size">16x16</span></p>
+              <p>Grid Show: <span id="grid-show">Off</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="error-wrapper">
+          <div class="error-header">
+            <i class="fas fa-xmark fa-6x"></i>
+          </div>
+          <div class="error-text">
+            <p>Size Limited to 1-100 for Performance Purposes</p>
+          </div>
+          <div class="back-button btn">Close</div>
+        </div>
+      </div>
+    </section>
+    <section id="socials">
+      <div class="socials">
+        <div class="btn">
+          <i class="fab fa-github fa-2x"></i>
+        </div>
+        <div class="btn">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </div>
+      </div>
+    </section>
   </div>
+  
   <script src="./js/script.js"></script>
 </body>
 </html>
